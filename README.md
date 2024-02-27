@@ -1,6 +1,7 @@
 # llvm-Kaleidoscope
 
 A simple implementation of the Kaleidoscope language using LLVM.
+- https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html
 
 Build:
 ```shell
