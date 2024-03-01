@@ -4,11 +4,10 @@ std::string IdentifierStr; // Filled in if tok_identifier
 double NumVal;             // Filled in if tok_number
 int CurTok;
 
-// gettok - Return the next token from standard input.
+// gettok - 返回下一个标记
 int gettok(){
-    static int LastChar = ' ';
+    static int LastChar = ' ';  // 上一个字符，静态变量保持上一次调用的状态
 
-    // skip any whitespace
     while (isspace(LastChar)){
         LastChar = getchar();
     }
@@ -35,11 +34,11 @@ int gettok(){
             LastChar = getchar();
         } while (isdigit(LastChar) || LastChar == '.');
 
-        NumVal = strtod(NumStr.c_str(), 0);
+        NumVal = strtod(NumStr.c_str(), 0); // string to double
         return tok_number;
     }
 
-    if (LastChar == '#') {  // Comment until end of line.
+    if (LastChar == '#') {  // 注释行
         do {
             LastChar = getchar();
         } while (LastChar != EOF && LastChar != '\n' && LastChar != '\r');
@@ -49,12 +48,12 @@ int gettok(){
         }
     }
     
-    // Check for end of file. Don't eat the EOF.
+    // 检查文件结束符
     if (LastChar == EOF){
         return tok_eof;
     }
 
-    // Otherwise, just return the character as its ascii value.
+    // 否则，返回字符本身（比如二元操作符、括号等）
     int ThisChar = LastChar;
     LastChar = getchar();
     
@@ -62,5 +61,5 @@ int gettok(){
 }
 
 int getNextToken() {
-    return CurTok = gettok();
+    return CurTok = gettok();   // 获取下一个标记
 }

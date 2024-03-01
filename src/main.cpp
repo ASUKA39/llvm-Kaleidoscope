@@ -36,18 +36,18 @@ static void mainLoop() {
     while (true) {
         fprintf(stderr, "ready> ");
         switch (CurTok) {
-            case tok_eof:
+            case tok_eof:  // 文件结束符
                 return;
-            case ';':
-                getNextToken();
+            case ';': // 分号，表示一行结束
+                getNextToken(); // 消耗掉分号
                 break;
-            case tok_def:
+            case tok_def:  // 函数定义
                 HandleDefinition();
                 break;
-            case tok_extern:
+            case tok_extern:  // extern声明
                 HandleExtern();
                 break;
-            default:
+            default:  // 其他情况，认定为顶层表达式
                 HandleTopLevelExpression();
                 break;
         }
