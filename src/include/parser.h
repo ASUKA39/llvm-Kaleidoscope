@@ -5,6 +5,7 @@
 #include "lexer.h"
 #include "token.h"
 #include "logerr.h"
+#include "IR.h"
 
 #include <cstdlib>
 #include <map>
