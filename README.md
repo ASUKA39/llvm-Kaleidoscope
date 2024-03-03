@@ -10,7 +10,7 @@ Progress:
 - [ ] Chapter 4: Adding JIT and Optimizer Support
 
 Build:
-```shell
+```bash
 mkdir build
 make clean
 make all
