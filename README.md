@@ -3,6 +3,12 @@
 A simple implementation of the Kaleidoscope language using LLVM.
 - https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html
 
+Progress:
+- [x] Chapter 1: Kaleidoscope: Implementing a Language with LLVM
+- [x] Chapter 2: Implementing a Parser and AST
+- [x] Chapter 3: Code generation to LLVM IR
+- [ ] Chapter 4: Adding JIT and Optimizer Support
+
 Build:
 ```shell
 mkdir build
