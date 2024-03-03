@@ -18,9 +18,11 @@ static void HandleDefinition() {
   if (auto FnAST = ParseDefinition()) {
     // fprintf(stderr, "Parsed a function definition.\n");
     if (auto *FnIR = FnAST->codegen()) {
-      fprintf(stderr, "Read function definition:");
+      fprintf(stderr, "Read function definition: \n");
       FnIR->print(llvm::errs());
       fprintf(stderr, "\n");
+    } else {
+      fprintf(stderr, "Error gen IR function definition.\n");
     }
   } else {
     // Skip token for error recovery.
@@ -32,9 +34,11 @@ static void HandleExtern() {
   if (auto ProtoAST = ParseExtern()) {
     // fprintf(stderr, "Parsed an extern\n");
     if (auto *FnIR = ProtoAST->codegen()) {
-      fprintf(stderr, "Read extern: ");
+      fprintf(stderr, "Read extern: \n");
       FnIR->print(llvm::errs());
       fprintf(stderr, "\n");
+    } else {
+      fprintf(stderr, "Error gen IR extern.\n");
     }
   } else {
     // Skip token for error recovery.
@@ -47,11 +51,13 @@ static void HandleTopLevelExpression() {
   if (auto FnAST = ParseTopLevelExpr()) {
     // fprintf(stderr, "Parsed a top-level expr\n");
     if (auto *FnIR = FnAST->codegen()) {
-      fprintf(stderr, "Read top-level expression:");
+      fprintf(stderr, "Read top-level expression: \n");
       FnIR->print(llvm::errs());
       fprintf(stderr, "\n");
 
-      FnIR->eraseFromParent();
+      // FnIR->eraseFromParent();
+    } else {
+      fprintf(stderr, "Error gen IR top-level expression.\n");
     }
   } else {
     // Skip token for error recovery.
