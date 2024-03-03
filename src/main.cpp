@@ -99,10 +99,10 @@ static void InitializeModule() {
 
   TheFPM = std::make_unique<llvm::legacy::FunctionPassManager>(TheModule.get());
 
-  TheFPM->add(llvm::createInstructionCombiningPass());
-  TheFPM->add(llvm::createReassociatePass());
-  TheFPM->add(llvm::createGVNPass());
-  // TheFPM->add(llvm::createCFGSimplificationPass());  // bug: undefined reference to `llvm::createCFGSimplificationPass(llvm::SimplifyCFGOptions, std::__1::function<bool (llvm::Function const&)>)'
+  TheFPM->add(llvm::createInstructionCombiningPass());  // 窥孔优化
+  TheFPM->add(llvm::createReassociatePass());   // 表达式重联
+  TheFPM->add(llvm::createGVNPass());   // 公共子表达式消除
+  // TheFPM->add(llvm::createCFGSimplificationPass());  // CFG简化  // bug: undefined reference to `llvm::createCFGSimplificationPass(llvm::SimplifyCFGOptions, std::__1::function<bool (llvm::Function const&)>)'
   
   TheFPM->doInitialization();
 }
