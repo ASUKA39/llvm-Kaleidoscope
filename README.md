@@ -1,7 +1,9 @@
 # llvm-Kaleidoscope
 
-A simple implementation of the Kaleidoscope language using LLVM.
-- https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html
+A simple implementation of the Kaleidoscope language using LLVM-14.
+- This repo is for LLVM-14. Unfortunately there are some differences between LLVM-14 and the latest version of LLVM, but the differences are not significant.
+- For Latest version of LLVM: https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/index.html
+- For LLVM-14, also my version: https://releases.llvm.org/14.0.0/docs/tutorial/MyFirstLanguageFrontend/
 
 Progress:
 - [x] Chapter 1: Kaleidoscope: Implementing a Language with LLVM
