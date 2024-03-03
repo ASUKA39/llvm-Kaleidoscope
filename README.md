@@ -11,7 +11,7 @@ make all
 ```
 
 Demo:
-```shell
+```llvm
 $ ./kaleidoscope
 >>> 4+5;
 >>> Read top-level expression: 
