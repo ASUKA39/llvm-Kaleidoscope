@@ -1,5 +1,6 @@
 #include "include/ast.h"
 #include "include/logerr.h"
+#include "include/pass.h"
 
 llvm::Value *NumberExprAST::codegen() {
     return llvm::ConstantFP::get(*TheContext, llvm::APFloat(Val));   // ConstantFP::get()用于创建常量浮点数  APFloat用于表示任意精度的浮点常量
@@ -98,6 +99,9 @@ llvm::Function *FunctionAST::codegen() {    // 函数定义
     if (llvm::Value *RetVal = Body->codegen()) {  // 递归调用codegen()，生成函数体的IR
         Builder->CreateRet(RetVal);  // 创建返回指令
         llvm::verifyFunction(*TheFunction);  // 验证函数的正确性
+
+        TheFPM->run(*TheFunction);  // 运行函数级别的Pass优化
+
         return TheFunction;
     } else {
         TheFunction->eraseFromParent(); // 如果函数体生成IR失败，从Module中移除函数

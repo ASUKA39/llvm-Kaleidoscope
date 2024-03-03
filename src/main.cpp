@@ -4,6 +4,7 @@
 #include "include/parser.h"
 #include "include/token.h"
 #include "include/IR.h"
+#include "include/pass.h"
 
 #include <cstdio>
 #include <map>
@@ -13,6 +14,10 @@
 #include "IR/IRBuilder.h"
 #include "IR/LLVMContext.h"
 #include "IR/Module.h"
+
+#include "Transforms/InstCombine/InstCombine.h"
+#include "Transforms/Scalar.h"
+#include "Transforms/Scalar/GVN.h"
 
 static void HandleDefinition() {
   if (auto FnAST = ParseDefinition()) {
@@ -91,6 +96,15 @@ static void InitializeModule() {
   TheContext = std::make_unique<llvm::LLVMContext>();
   TheModule = std::make_unique<llvm::Module>("my jit", *TheContext);
   Builder = std::make_unique<llvm::IRBuilder<>>(*TheContext);
+
+  TheFPM = std::make_unique<llvm::legacy::FunctionPassManager>(TheModule.get());
+
+  TheFPM->add(llvm::createInstructionCombiningPass());
+  TheFPM->add(llvm::createReassociatePass());
+  TheFPM->add(llvm::createGVNPass());
+  // TheFPM->add(llvm::createCFGSimplificationPass());  // bug: undefined reference to `llvm::createCFGSimplificationPass(llvm::SimplifyCFGOptions, std::__1::function<bool (llvm::Function const&)>)'
+  
+  TheFPM->doInitialization();
 }
 
 int main() {
